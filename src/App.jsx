@@ -22,13 +22,13 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
-      <div className="w-full max-w-2xl bg-white shadow rounded-lg p-6">
-        <h1 className="text-2xl font-semibold mb-4">Demunger</h1>
+    <div className="min-h-screen bg-gray-50 p-8">
+      <div className="w-full max-w-6xl mx-auto bg-white shadow rounded-lg p-8">
+        <h1 className="text-3xl font-semibold mb-6">Demunger</h1>
 
         <label className="block text-sm font-medium text-gray-700 mb-2">Input</label>
         <textarea
-          className="w-full border rounded p-3 resize-y h-40 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full border rounded p-4 resize-y h-64 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Paste column data from Google Sheets here..."
@@ -45,7 +45,7 @@ export default function App() {
 
         <h2 className="mt-6 text-lg font-medium">Sanitized output</h2>
         <textarea
-          className="w-full border rounded p-3 resize-y h-40 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-sm"
+          className="w-full border rounded p-4 resize-y h-64 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-sm"
           value={sanitizedOutput}
           readOnly
           placeholder="Sanitized output will appear here..."

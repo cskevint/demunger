@@ -1,24 +1,33 @@
-import React, { useState } from 'react'
-import DOMPurify from 'dompurify'
+import { useState } from 'react';
+import DOMPurify from 'dompurify';
 
 export default function App() {
-  const [input, setInput] = useState('')
-  const [sanitizedOutput, setSanitizedOutput] = useState('')
+  const [input, setInput] = useState('');
+  const [sanitizedOutput, setSanitizedOutput] = useState('');
 
   function handleSanitize() {
     // Split by lines, sanitize each line, then join back with newlines
-    const lines = input.split('\n')
+    const lines = input.split('\n');
     const sanitizedLines = lines.map(line => {
-      return DOMPurify.sanitize(line, { 
-        ALLOWED_TAGS: [], // Strip all HTML tags, keeping only text
+      // First, replace < and > with HTML entities
+      let cleaned = line.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      
+      // Then use DOMPurify to sanitize with allowed tags
+      cleaned = DOMPurify.sanitize(cleaned, { 
+        ALLOWED_TAGS: ['u', 'p', 'i', 'strong', 'em', 'br', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'li', 'ul', 'ol', 'span'],
         KEEP_CONTENT: true // Keep the text content inside tags
-      })
-    })
-    setSanitizedOutput(sanitizedLines.join('\n'))
+      });
+      
+      // Finally, replace HTML entities back to < and >
+      cleaned = cleaned.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+      
+      return cleaned;
+    });
+    setSanitizedOutput(sanitizedLines.join('\n'));
   }
 
   function handleCopy() {
-    navigator.clipboard.writeText(sanitizedOutput)
+    navigator.clipboard.writeText(sanitizedOutput);
   }
 
   return (
@@ -27,6 +36,9 @@ export default function App() {
         <h1 className="text-3xl font-semibold mb-6">Demunger</h1>
 
         <label className="block text-sm font-medium text-gray-700 mb-2">Input</label>
+        <p className="text-xs text-gray-500 mb-2">
+          Allowed HTML tags: &lt;u&gt;, &lt;p&gt;, &lt;i&gt;, &lt;strong&gt;, &lt;em&gt;, &lt;br&gt;, &lt;h1-h6&gt;, &lt;a&gt;, &lt;li&gt;, &lt;ul&gt;, &lt;ol&gt;, &lt;span&gt;
+        </p>
         <textarea
           className="w-full border rounded p-4 resize-y h-64 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           value={input}
@@ -63,5 +75,5 @@ export default function App() {
         )}
       </div>
     </div>
-  )
+  );
 }

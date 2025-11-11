@@ -35,7 +35,7 @@ export default function App() {
       <div className="w-full max-w-6xl mx-auto bg-white shadow rounded-lg p-8">
         <h1 className="text-3xl font-semibold mb-6">Demunger</h1>
 
-        <label className="block text-sm font-medium text-gray-700 mb-2">Input</label>
+        <h2 className="mt-6 text-lg font-medium">Input</h2>
         <p className="text-xs text-gray-500 mb-2">
           Allowed HTML tags: &lt;u&gt;, &lt;p&gt;, &lt;i&gt;, &lt;strong&gt;, &lt;em&gt;, &lt;br&gt;, &lt;h1-h6&gt;, &lt;a&gt;, &lt;li&gt;, &lt;ul&gt;, &lt;ol&gt;, &lt;span&gt;
         </p>
